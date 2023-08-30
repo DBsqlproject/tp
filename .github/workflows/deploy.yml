@@ -25,13 +25,28 @@ jobs:
         with:
            java-version: 11
            
+        # application.properties 파일 생성
+      - name: Make application.properties             
+        run: |
+          echo "spring.datasource.driver-class-name=${{ secrets.DATASOURCE_DRIVER_CLASS_NAME }}" >> src/main/resources/application.properties
+          echo "spring.datasource.url=${{ secrets.DATASOURCE_URL }}" >> src/main/resources/application.properties
+          echo "spring.datasource.username=${{ secrets.DATASOURCE_USERNAME }}" >> src/main/resources/application.properties
+          echo "spring.datasource.password=${{ secrets.DATASOURCE_PASSWORD }}" >> src/main/resources/application.properties
+          echo "" >> src/main/resources/application.properties
+          echo "server.port=8080" >> src/main/resources/application.properties
+          echo "" >> src/main/resources/application.properties   
+          echo "spring.mvc.view.prefix=/WEB-INF/views/" >> src/main/resources/application.properties
+          echo "spring.mvc.view.suffix=.jsp" >> src/main/resources/application.properties
+        shell: bash
+
+          
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
         shell: bash
        
         
       - name: Build with Gradle
-        run: ./gradlew bootwar
+        run: ./gradlew war
         shell: bash
       
       - name: Make zip File
@@ -50,5 +65,5 @@ jobs:
 
       - name: Code Deploy
         run: aws deploy create-deployment --application-name $CODE_DEPLOY_APP_NAME --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name $DEPLOYMENT_GROUP_NAME --s3-location bucket=$BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip
-        
+       
        
