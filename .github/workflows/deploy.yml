@@ -24,6 +24,21 @@ jobs:
         uses: actions/setup-java@v1
         with:
            java-version: 11
+
+          ## 빌드 전 환경설정
+      - name : write env
+        run: |
+          echo "spring.datasource.driver-class-name=${{ secrets.DATASOURCE_DRIVER_CLASS_NAME }}" >> application.properties
+          echo "spring.datasource.url=${{ secrets.DATASOURCE_URL }}" >> application.properties
+          echo "spring.datasource.username=${{ secrets.DATASOURCE_USERNAME }}" >> application.properties
+          echo "spring.datasource.password=${{ secrets.DATASOURCE_PASSWORD }}" >> application.properties
+          echo "" >> application.properties
+          echo "server.port=8080" >> application.properties
+          echo "" >> application.properties   
+          echo "spring.mvc.view.prefix=/WEB-INF/views/" >> application.properties
+          echo "spring.mvc.view.suffix=.jsp" >> application.properties        
+          
+        working-directory : ./src/main/resources
            
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
@@ -50,5 +65,5 @@ jobs:
 
       - name: Code Deploy
         run: aws deploy create-deployment --application-name $CODE_DEPLOY_APP_NAME --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name $DEPLOYMENT_GROUP_NAME --s3-location bucket=$BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip
-        
+       
        
