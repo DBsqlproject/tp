@@ -31,7 +31,7 @@ jobs:
        
         
       - name: Build with Gradle
-        run: ./gradlew
+        run: ./gradlew war
         shell: bash
       
       - name: Make zip File
