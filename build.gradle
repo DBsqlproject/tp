@@ -13,11 +13,6 @@ java {
 	sourceCompatibility = '11'
 }
 
-bootWar {
-       archiveFileName.set 'tp.war'
-}
-
-
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
