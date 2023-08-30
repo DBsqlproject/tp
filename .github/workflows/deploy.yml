@@ -2,14 +2,17 @@ name: Build and Deploy Spring Boot to AWS EC2
 # workflow 실행 조건
 on:  
   push:
-    branches: [ merge ]
+    branches:
+    - merge  
+    
     #merge 브런치 push 될 때 실행      
 
 
 jobs: 
   test: 
     name: Hello test job! 
-    runs-on: ubuntu-22.04.3 
+    runs-on: ubuntu-latest 
+    
     steps:
       - name: check out
         uses: actions/checkout@v2
@@ -21,8 +24,8 @@ jobs:
            
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
-        shell: bash
+       
         
       - name: Build with Gradle
-        run: ./gradlew build
-        shell: bash
+        run: ./gradlew bootwar
+       
