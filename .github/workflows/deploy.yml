@@ -26,20 +26,19 @@ jobs:
            java-version: 11
            
         # application.properties 파일 생성
-      - name: Make application.properties
+      - name: Make application.properties             
         run: |
-          cd ./src/main/resources
-          touch ./application.properties          
-          echo "spring.datasource.driver-class-name=${{ secrets.DATASOURCE_DRIVER_CLASS_NAME }}" >> application.properties
-          echo "spring.datasource.url=${{ secrets.DATASOURCE_URL }}" >> application.properties
-          echo "spring.datasource.username=${{ secrets.DATASOURCE_USERNAME }}" >> application.properties
-          echo "spring.datasource.password=${{ secrets.DATASOURCE_PASSWORD }}" >> application.properties
-          echo "" >> application.properties
-          echo "server.port=8080" >> application.properties
-          echo "" >> application.properties   
-          echo "spring.mvc.view.prefix=/WEB-INF/views/" >> application.properties
-          echo "spring.mvc.view.suffix=.jsp" >> application.properties          
-          shell: bash
+          echo "spring.datasource.driver-class-name=${{ secrets.DATASOURCE_DRIVER_CLASS_NAME }}" >> src/main/resources/application.properties
+          echo "spring.datasource.url=${{ secrets.DATASOURCE_URL }}" >> src/main/resources/application.properties
+          echo "spring.datasource.username=${{ secrets.DATASOURCE_USERNAME }}" >> src/main/resources/application.properties
+          echo "spring.datasource.password=${{ secrets.DATASOURCE_PASSWORD }}" >> src/main/resources/application.properties
+          echo "" >> src/main/resources/application.properties
+          echo "server.port=8080" >> src/main/resources/application.properties
+          echo "" >> src/main/resources/application.properties   
+          echo "spring.mvc.view.prefix=/WEB-INF/views/" >> src/main/resources/application.properties
+          echo "spring.mvc.view.suffix=.jsp" >> src/main/resources/application.properties
+        shell: bash
+
           
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
