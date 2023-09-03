@@ -7,11 +7,6 @@
 <title>hi</title>
 </head>
 <body>
-잘나오네 yoyoyo ?
-123123
-
-첫번째 codeDeploy test..<br>
-첫번째 shtest...<br>
-최종테스트
+인스턴스 재실행 ip바뀜..
 </body>
 </html>
